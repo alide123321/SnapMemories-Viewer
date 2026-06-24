@@ -1,0 +1,18 @@
+# --- Personal data: never commit ---
+# Your exported Snapchat media and anything generated from it.
+/memories/
+/thumbs/
+/json/
+/html/
+/Deleted Memories/
+index.html
+
+# Generated, locally-only data manifests (contain dates/GPS/places)
+/viewer/data.js
+/viewer/geocache.json
+snapmemories-deletions*.json
+
+# Junk / build artifacts
+__pycache__/
+*.pyc
+*.stackdump
