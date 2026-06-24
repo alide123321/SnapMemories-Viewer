@@ -5,7 +5,7 @@
 /json/
 /html/
 /Deleted Memories/
-index.html
+/index.html
 
 # Generated, locally-only data manifests (contain dates/GPS/places)
 /viewer/data.js

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>Memories</title>
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="vendor/MarkerCluster.css">
+<link rel="stylesheet" href="vendor/MarkerCluster.Default.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="topbar">
+  <div class="brand"><span class="ghost">👻</span> Memories</div>
+  <nav id="nav">
+    <button data-view="gallery" class="active">Gallery</button>
+    <button data-view="map">Map</button>
+    <button data-view="stats">Stats</button>
+    <button data-view="onthisday">On This Day</button>
+    <button data-view="trips">Trips</button>
+    <button data-view="slideshow" id="nav-slideshow">Slideshow</button>
+    <button data-view="deleted" id="nav-deleted">Deleted</button>
+  </nav>
+  <div class="count" id="resultCount"></div>
+</header>
+
+<div id="filterbar">
+  <label>Type
+    <select id="f-type">
+      <option value="">All</option>
+      <option value="I">Photos</option>
+      <option value="V">Videos</option>
+    </select>
+  </label>
+  <label>Year <select id="f-year"><option value="">All</option></select></label>
+  <label>Place <select id="f-place"><option value="">All</option></select></label>
+  <label>From <input type="date" id="f-from"></label>
+  <label>To <input type="date" id="f-to"></label>
+  <label class="chk"><input type="checkbox" id="f-overlay"> Has caption</label>
+  <label class="chk"><input type="checkbox" id="f-located"> Has location</label>
+  <label>Sort
+    <select id="f-sort">
+      <option value="desc">Newest first</option>
+      <option value="asc">Oldest first</option>
+    </select>
+  </label>
+  <button id="f-clear" class="ghostbtn">Clear</button>
+</div>
+
+<main id="content">
+  <section id="view-gallery" class="view active"></section>
+  <section id="view-map" class="view"><div id="map"></div>
+    <div id="map-controls">
+      <button id="map-mode-cluster" class="active">Pins</button>
+      <button id="map-mode-heat">Heatmap</button>
+    </div>
+  </section>
+  <section id="view-stats" class="view"></section>
+  <section id="view-onthisday" class="view"></section>
+  <section id="view-trips" class="view"></section>
+  <section id="view-deleted" class="view"></section>
+</main>
+
+<!-- Lightbox -->
+<div id="lightbox" class="hidden">
+  <button class="lb-close" id="lb-close" title="Close (Esc)">✕</button>
+  <button class="lb-del" id="lb-delete" title="Move to Deleted Memories">🗑 Delete</button>
+  <button class="lb-nav lb-prev" id="lb-prev" title="Previous (←)">‹</button>
+  <button class="lb-nav lb-next" id="lb-next" title="Next (→)">›</button>
+  <div class="lb-stage" id="lb-stage"></div>
+  <div class="lb-meta" id="lb-meta"></div>
+</div>
+
+<!-- Slideshow -->
+<div id="slideshow" class="hidden">
+  <div class="ss-stage" id="ss-stage"></div>
+  <div class="ss-bar">
+    <button id="ss-prev">‹ Prev</button>
+    <button id="ss-play">⏸ Pause</button>
+    <button id="ss-next">Next ›</button>
+    <label>Speed <select id="ss-speed">
+      <option value="2">2s</option>
+      <option value="3" selected>3s</option>
+      <option value="5">5s</option>
+      <option value="8">8s</option>
+    </select></label>
+    <span id="ss-pos"></span>
+    <button id="ss-exit">Exit ✕</button>
+  </div>
+</div>
+
+<!-- data + libraries (all local) -->
+<script src="data.js"></script>
+<script src="vendor/leaflet.js"></script>
+<script src="vendor/markercluster.js"></script>
+<script src="vendor/leaflet-heat.js"></script>
+<script src="vendor/chart.umd.js"></script>
+<!-- app -->
+<script src="core.js"></script>
+<script src="gallery.js"></script>
+<script src="deleted.js"></script>
+<script src="lightbox.js"></script>
+<script src="map.js"></script>
+<script src="stats.js"></script>
+<script src="onthisday.js"></script>
+<script src="trips.js"></script>
+<script src="slideshow.js"></script>
+<script>App.init();</script>
+</body>
+</html>
