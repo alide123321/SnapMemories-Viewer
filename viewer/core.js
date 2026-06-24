@@ -43,6 +43,31 @@ window.App = (function () {
     });
   }
 
+  /* ---- inline SVG icons (Lucide-style, inherit currentColor) ---- */
+  const ICONS = {
+    ghost:'<path d="M12 2a8 8 0 0 0-8 8v11l3-2 2.5 2 2.5-2 2.5 2 2.5-2 3 2V10a8 8 0 0 0-8-8Z"/><circle cx="9" cy="10.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="10.5" r="1.1" fill="currentColor" stroke="none"/>',
+    video:'<rect x="2" y="6" width="13" height="12" rx="2"/><path d="m15 10 6-3v10l-6-3"/>',
+    image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/>',
+    message:'<path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/>',
+    pin:'<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>',
+    trash:'<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6"/><path d="M14 11v6"/>',
+    restore:'<path d="M3 12a9 9 0 1 0 9-9 9.7 9.7 0 0 0-6.7 2.7L3 8"/><path d="M3 3v5h5"/>',
+    download:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/>',
+    pause:'<rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/>',
+    'chevron-left':'<path d="m15 18-6-6 6-6"/>',
+    'chevron-right':'<path d="m9 18 6-6-6-6"/>',
+    x:'<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+    map:'<path d="m9 4 6 2 5-2v15l-5 2-6-2-5 2V6z"/><path d="M9 4v15"/><path d="M15 6v15"/>',
+    check:'<path d="M20 6 9 17l-5-5"/>'
+  };
+  const ICONS_FILLED = { play:'<path d="M7 4v16l13-8z"/>' };
+  function icon(name,size){
+    const s=size||18;
+    if(ICONS_FILLED[name])
+      return `<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${ICONS_FILLED[name]}</svg>`;
+    return `<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]||''}</svg>`;
+  }
+
   /* ---- formatting helpers ---- */
   function fmtDate(d){
     let h=d.getUTCHours(), ap=h>=12?'PM':'AM'; h=h%12||12;
@@ -145,7 +170,7 @@ window.App = (function () {
     switchView(views[start]?start:'gallery');
   }
 
-  return {init,register,getFiltered,switchView,setCount,refresh,
+  return {init,register,getFiltered,switchView,setCount,refresh,icon,
           fmtDate,fmtDateShort,fmtDur,MONTHS,WD,
           deleteMemory,restoreMemory,deletedItems,deletedIds,deletedCount,
           state, all:()=>M.filter(m=>!deleted.has(m.id)), current:()=>current};

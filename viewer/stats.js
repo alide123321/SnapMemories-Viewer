@@ -1,7 +1,8 @@
 /* stats.js — overview dashboard (computed locally from all memories). */
 (function(){
   let charts=[];
-  const ACC='#fffc00', ACC2='#7ec8ff', GRID='#2a2a36', TXT='#9a9aa8';
+  const ACC='#eccb3a', ACC2='#7e9cc8', GRID='rgba(255,255,255,.06)', TXT='#a0a0ad';
+  const CAL_RGB='236,203,58';
 
   function card(big,lbl){return `<div class="card"><div class="big">${big}</div><div class="lbl">${lbl}</div></div>`;}
   function chartBox(id,title){return `<div class="chartbox"><h3>${title}</h3><canvas id="${id}"></canvas></div>`;}
@@ -17,7 +18,7 @@
 
   function calendar(container,year,byDay){
     const wrap=document.createElement('div'); wrap.className='cal-wrap';
-    const head=document.createElement('h3'); head.textContent='Activity in ';
+    const head=document.createElement('div'); head.className='cal-head'; head.textContent='Activity in ';
     const sel=document.createElement('select');
     container._years.forEach(y=>sel.add(new Option(y,y)));
     sel.value=year; head.appendChild(sel);
@@ -33,7 +34,7 @@
       const key=d.toISOString().slice(0,10);
       const n=byDay[key]||0;
       const cell=document.createElement('div'); cell.className='cal-cell';
-      if(n){const a=0.18+0.82*(n/max);cell.style.background=`rgba(255,252,0,${a.toFixed(2)})`;
+      if(n){const a=0.2+0.8*(n/max);cell.style.background=`rgba(${CAL_RGB},${a.toFixed(2)})`;
         cell.title=`${key}: ${n}`;}
       col.appendChild(cell);
       if(d.getUTCDay()===6){cal.appendChild(col);col=document.createElement('div');col.className='cal-col';}
@@ -41,6 +42,11 @@
     }
     cal.appendChild(col);
     wrap.appendChild(cal);
+    const legend=document.createElement('div'); legend.className='cal-legend';
+    let lg='<span>Less</span>';
+    [0,0.3,0.5,0.72,1].forEach(a=>{lg+=`<span class="cal-cell" style="background:${a?`rgba(${CAL_RGB},${(0.2+0.8*a).toFixed(2)})`:'var(--surface-3)'}"></span>`;});
+    lg+='<span>More</span>'; legend.innerHTML=lg;
+    wrap.appendChild(legend);
     container.appendChild(wrap);
     sel.onchange=()=>{wrap.remove();calendar(container,sel.value,byDay);};
   }
@@ -76,7 +82,7 @@
         card(loc.length.toLocaleString(),'Geotagged')+
         card(places.size.toLocaleString(),'Places')+
         card(countries.size.toLocaleString(),'Countries')+
-        card(busyN+' on '+busy,'Busiest day')+
+        card(App.fmtDateShort(new Date(busy+'T00:00:00Z')),'Busiest day · '+busyN+' memories')+
         '</div>'+
         '<div class="charts">'+
         chartBox('c-year','Memories per year')+

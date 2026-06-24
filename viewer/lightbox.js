@@ -6,9 +6,10 @@
   const delBtn=document.getElementById('lb-delete');
   let list=[], idx=0, pendingDel=false, delTimer=null;
 
+  const DEL_ICON=App.icon('trash',18);
   function resetDel(){
     pendingDel=false; if(delTimer){clearTimeout(delTimer);delTimer=null;}
-    delBtn.textContent='🗑 Delete'; delBtn.classList.remove('confirm');
+    delBtn.innerHTML=DEL_ICON+'<span class="lb-del-txt">Delete</span>'; delBtn.classList.remove('confirm');
   }
 
   function render(){
@@ -33,7 +34,7 @@
     if(m.place) bits.push(`<span><span class="k">Place</span>${m.place}${m.country&&m.country!==m.place?' · '+m.country:''}</span>`);
     if(m.hasLoc){
       bits.push(`<span><span class="k">Coords</span>${m.lat.toFixed(5)}, ${m.lng.toFixed(5)}</span>`);
-      bits.push(`<button id="lb-map">Show on map</button>`);
+      bits.push(`<button id="lb-map" class="btn btn-secondary">${App.icon('map',16)}<span>Show on map</span></button>`);
     }
     bits.push(`<span class="subtle" style="margin-left:auto">${idx+1} / ${list.length}</span>`);
     meta.innerHTML=bits.join('');
@@ -48,7 +49,7 @@
     const m=list[idx];
     if(!pendingDel){
       pendingDel=true;
-      delBtn.textContent='Confirm delete?'; delBtn.classList.add('confirm');
+      delBtn.innerHTML=DEL_ICON+'<span class="lb-del-txt">Confirm delete?</span>'; delBtn.classList.add('confirm');
       delTimer=setTimeout(resetDel,4000);
       return;
     }

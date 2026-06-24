@@ -10,17 +10,19 @@
       img.loading='lazy'; img.decoding='async'; img.src=m.thumb; img.alt='';
       t.appendChild(img);
     } else {
-      t.style.display='flex'; t.style.alignItems='center'; t.style.justifyContent='center';
-      t.style.fontSize='30px'; t.textContent = m.type==='V'?'🎬':'🖼️';
+      const ph=document.createElement('div'); ph.className='ph';
+      ph.innerHTML=App.icon(m.type==='V'?'video':'image',34);
+      t.appendChild(ph);
     }
     if(m.type==='V'){
       const b=document.createElement('div'); b.className='badge';
-      b.innerHTML='▶'+(m.dur!=null?' <span>'+App.fmtDur(m.dur)+'</span>':'');
+      b.innerHTML=App.icon('play',12)+(m.dur!=null?'<span>'+App.fmtDur(m.dur)+'</span>':'');
       t.appendChild(b);
     }
-    if(m.overlay){const c=document.createElement('div');c.className='cap';c.textContent='💬';t.appendChild(c);}
+    if(m.overlay){const c=document.createElement('div');c.className='cap';c.innerHTML=App.icon('message',14);t.appendChild(c);}
     const dt=document.createElement('div'); dt.className='dt';
-    dt.innerHTML = App.fmtDateShort(m.date) + (m.place?'<span class="place">📍 '+m.place+'</span>':'');
+    dt.innerHTML = '<div>'+App.fmtDateShort(m.date)+'</div>' +
+      (m.place?'<span class="place">'+App.icon('pin',11)+'<span>'+m.place+'</span></span>':'');
     t.appendChild(dt);
     t.addEventListener('click',()=>onClick(list,idx));
     return t;

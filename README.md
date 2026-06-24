@@ -3,7 +3,9 @@
 A fast, **fully local** viewer for your exported Snapchat memories. Point it at a
 Snapchat *"Download My Data"* export and it turns thousands of loose photos and
 videos into a browsable gallery — with a world map, statistics, automatic trip
-detection, an "On This Day" timeline, and a slideshow.
+detection, an "On This Day" timeline, and a slideshow. Everything lives in a
+clean, modern dark interface with consistent SVG iconography and tabular,
+data-friendly typography.
 
 **Your photos, videos, and metadata never leave your computer.** There is no
 server, no account, and nothing is uploaded. The viewer is a plain HTML page you
@@ -124,10 +126,10 @@ default browser. No installation, no setup.
 You can prune memories you don't want, and nothing is ever destroyed — files are
 **moved** to a `Deleted Memories/` folder so you can always get them back.
 
-1. In the viewer, open a memory and click **🗑 Delete** (click again to confirm).
+1. In the viewer, open a memory and click **Delete** (click again to confirm).
    It disappears from every view immediately. A **Deleted** tab collects everything
    you've removed — click **Restore** on anything you change your mind about.
-2. In the **Deleted** tab, click **⬇ Export deletion list** (saves a small
+2. In the **Deleted** tab, click **Export deletion list** (saves a small
    `snapmemories-deletions.json` to your Downloads).
 3. Double-click **`Apply Deletions.cmd`** (which runs `apply_deletions.py`). It
    moves those files into `Deleted Memories/` and rewrites `viewer/data.js`.

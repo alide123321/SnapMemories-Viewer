@@ -82,9 +82,9 @@
         const card=document.createElement('div'); card.className='trip';
         const span=App.fmtDateShort(t.start)+(days(t.start,t.end)>=1?' → '+App.fmtDateShort(t.end):'');
         const nights=Math.round(days(t.start,t.end));
-        card.innerHTML=`<h3>${t.place}${t.country&&t.country!==t.place?' · '+t.country:''}</h3>`+
+        card.innerHTML=`<h3>${App.icon('pin',17)}<span>${t.place}${t.country&&t.country!==t.place?' · '+t.country:''}</span></h3>`+
           `<div class="meta">${span} · ${t.items.length} memories${nights?` · ~${nights} day${nights>1?'s':''}`:''}</div>`+
-          `<div class="tactions"><button class="t-photos">View photos</button><button class="t-map">Show route</button></div>`+
+          `<div class="tactions"><button class="t-photos btn btn-primary">${App.icon('image',16)}<span>View photos</span></button><button class="t-map btn btn-secondary">${App.icon('map',16)}<span>Show route</span></button></div>`+
           `<div class="trip-map" id="tmap-${i}"></div>`;
         root.appendChild(card);
         card.querySelector('.t-photos').onclick=e=>{e.stopPropagation();App.Lightbox.open(t.items,0);};

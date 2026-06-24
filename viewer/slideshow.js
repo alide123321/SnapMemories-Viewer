@@ -5,6 +5,8 @@
   const posEl=document.getElementById('ss-pos');
   const playBtn=document.getElementById('ss-play');
   let list=[], idx=0, playing=true, timer=null, speed=3;
+  const PAUSE_BTN=App.icon('pause',16)+'<span>Pause</span>';
+  const PLAY_BTN=App.icon('play',16)+'<span>Play</span>';
 
   function clear(){if(timer){clearTimeout(timer);timer=null;}}
   function show(){
@@ -23,21 +25,21 @@
     stage.appendChild(main);
     if(m.overlay){const ov=document.createElement('img');ov.className='ov';ov.src=m.overlay;stage.appendChild(ov);}
     const cap=document.createElement('div'); cap.className='ss-cap';
-    cap.innerHTML=`${App.fmtDate(m.date)}${m.place?' · 📍 '+m.place:''}`;
+    cap.innerHTML=`<span>${App.fmtDate(m.date)}</span>${m.place?App.icon('pin',14)+'<span>'+m.place+'</span>':''}`;
     stage.appendChild(cap);
     posEl.textContent=`${idx+1} / ${list.length}`;
   }
   function next(){idx=(idx+1)%list.length;show();}
   function prev(){idx=(idx-1+list.length)%list.length;show();}
   function setPlaying(p){
-    playing=p; playBtn.textContent=p?'⏸ Pause':'▶ Play';
+    playing=p; playBtn.innerHTML=p?PAUSE_BTN:PLAY_BTN;
     const v=stage.querySelector('video');
     if(p){ if(v){v.play();} else { clear(); timer=setTimeout(next,speed*1000);} }
     else { clear(); if(v)v.pause(); }
   }
   function start(l){
     if(!l||!l.length){alert('Nothing to play — adjust your filters first.');return;}
-    list=l; idx=0; playing=true; box.classList.remove('hidden'); playBtn.textContent='⏸ Pause'; show();
+    list=l; idx=0; playing=true; box.classList.remove('hidden'); playBtn.innerHTML=PAUSE_BTN; show();
   }
   function exit(){clear();const v=stage.querySelector('video');if(v)v.pause();stage.innerHTML='';box.classList.add('hidden');}
 

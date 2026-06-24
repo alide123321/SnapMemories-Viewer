@@ -31,11 +31,11 @@ in your default browser. No installation, no setup.
 You can remove memories you don't want — and they're **moved to a `Deleted Memories`
 folder, not permanently deleted**, so you can always get them back.
 
-1. In the viewer, open a memory (click it) and click **🗑 Delete** (click again to confirm).
+1. In the viewer, open a memory (click it) and click **Delete** (click again to confirm).
    It disappears from every view immediately. A new **Deleted** tab collects everything you've
    removed — open it and click **Restore** on anything you change your mind about.
 2. When you're ready to actually move the files on disk, open the **Deleted** tab and click
-   **⬇ Export deletion list** (this saves a small `snapmemories-deletions.json` to your Downloads).
+   **Export deletion list** (this saves a small `snapmemories-deletions.json` to your Downloads).
 3. Double-click **`Apply Deletions.cmd`**. It moves those memories' files into the
    `Deleted Memories/` folder and updates the viewer so they're gone for good from the gallery.
 

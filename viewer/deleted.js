@@ -21,13 +21,16 @@
       img.loading='lazy'; img.decoding='async'; img.src=m.thumb; img.alt='';
       t.appendChild(img);
     } else {
-      t.style.display='flex'; t.style.alignItems='center'; t.style.justifyContent='center';
-      t.style.fontSize='30px'; t.textContent = m.type==='V'?'🎬':'🖼️';
+      const ph=document.createElement('div'); ph.className='ph';
+      ph.innerHTML=App.icon(m.type==='V'?'video':'image',34);
+      t.appendChild(ph);
     }
     const dt=document.createElement('div'); dt.className='dt';
-    dt.innerHTML = App.fmtDateShort(m.date) + (m.place?'<span class="place">📍 '+m.place+'</span>':'');
+    dt.innerHTML = '<div>'+App.fmtDateShort(m.date)+'</div>' +
+      (m.place?'<span class="place">'+App.icon('pin',11)+'<span>'+m.place+'</span></span>':'');
     t.appendChild(dt);
-    const rb=document.createElement('button'); rb.className='restore-btn'; rb.textContent='↩ Restore';
+    const rb=document.createElement('button'); rb.className='restore-btn';
+    rb.innerHTML=App.icon('restore',13)+'<span>Restore</span>';
     rb.onclick=e=>{ e.stopPropagation(); App.restoreMemory(m.id); };
     t.appendChild(rb);
     return t;
@@ -53,8 +56,8 @@
       root.appendChild(help);
 
       const bar=document.createElement('div'); bar.className='del-actions';
-      const exp=document.createElement('button'); exp.className='export-btn';
-      exp.textContent='⬇ Export deletion list'; exp.onclick=exportList;
+      const exp=document.createElement('button'); exp.className='btn btn-primary';
+      exp.innerHTML=App.icon('download',16)+'<span>Export deletion list</span>'; exp.onclick=exportList;
       exp.disabled=!items.length;
       bar.appendChild(exp);
       root.appendChild(bar);
